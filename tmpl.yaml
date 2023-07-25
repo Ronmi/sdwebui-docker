@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  webui:
+    build: ./build
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    user: 1000:1000
+    ports:
+      - 127.0.0.1:7860:7860
+    volumes:
+      - ./stable-diffusion-webui:/stable-diffusion-webui
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - /etc/shadow:/etc/shadow:ro
+      - ./cache/pip:/tmp/.cache
+      - ./cache/config:/tmp/.config
+      - ./cache/nv:/tmp/.nv
+    env_file: ./webui-user.sh
+    environment:
+      - http_proxy=
+      - HOME=/tmp
+    working_dir: /stable-diffusion-webui
