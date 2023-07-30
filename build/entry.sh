@@ -1,10 +1,11 @@
 #!/bin/bash
 
 case "$1" in
-    bash|sh)
-        exec "$@"
+    --*)
         ;;
     *)
+        echo "Running command: ""$@"
+        exec "$@"
         ;;
 esac
 

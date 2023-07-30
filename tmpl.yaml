@@ -27,3 +27,9 @@ services:
       - http_proxy=
       - HOME=/tmp
     working_dir: /stable-diffusion-webui
+    healthcheck:
+      test: "curl -f 'http://127.0.0.1:7860' || exit 1"
+      interval: 10s
+      start_period: 1m
+      timeout: 5s
+      retries: 180 # 180 * 10s = 1800s = 30m
