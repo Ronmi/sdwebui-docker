@@ -14,7 +14,7 @@ Bit easier to run [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stab
 - official (proprietary) NVIDIA driver
 - [Docker](https://docs.docker.com/engine/install/)
 - [CUDA support for Docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
-- edit `./build/Dockerfile` to fit your need, timezone in particular
+- edit `./build/Dockerfile` and `./docker-compose.yml` to fit your need, timezone in particular
 - edit `./webui-user.sh`
 
 You don't have to install python or cuda toolkit as they are installed in container.
