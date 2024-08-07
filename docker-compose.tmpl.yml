@@ -1,0 +1,45 @@
+services:
+  webui:
+    build:
+      context: build/webui
+      args:
+        APP_GID: #UID#
+        APP_UID: #GID#
+    env_file: ./webui/.env
+    user: #UID#:#GID#
+    ports:
+      - 127.0.0.1:7860:7860
+    volumes:
+      # dirs in repo
+      - ./webui/configs:/home/user/webui/configs
+      - ./webui/embeddings:/home/user/webui/embeddings
+      - ./webui/extensions:/home/user/webui/extensions
+      - ./webui/localizations:/home/user/webui/localizations
+      - ./webui/models:/home/user/webui/models
+      - ./webui/scripts:/home/user/webui/scripts
+      - ./webui/textual_inversion_templates:/home/user/webui/textual_inversion_templates
+      # required directories but not in sdwebui source
+      - ./webui/.cache:/home/user/.cache
+      - ./webui/config_states:/home/user/webui/config_states
+      - ./webui/GFPGAN:/home/user/webui/GFPGAN
+      - ./webui/outputs:/home/user/webui/outputs
+      - ./webui/repositories:/home/user/webui/repositories
+      - ./webui/venv:/home/user/webui/venv
+      # settings
+      - ./webui/config.json:/home/user/webui/config.json
+      - ./webui/ui-config.json:/home/user/webui/ui-config.json
+      # add more custom dirs you need
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: curl --fail http://localhost:7860/ || exit 1
+      interval: 40s
+      timeout: 30s
+      retries: 3
+      start_period: 60s
+    

@@ -1,0 +1,21 @@
+TL;DR
+
+For decent NV cards:
+ - edit webui/.env and set COMMANDLINE_ARGS="--listen --enable-insecure-extension-access --xformers"
+ - run "docker compose up"
+
+For older NV cards that has about 6G vram:
+ - edit webui/.env and set COMMANDLINE_ARGS="--listen -medvram --enable-insecure-extension-access --xformers"
+ - run "docker compose up"
+
+=======
+Usage:
+
+1. Customize webui/.env and docker-compose.yml to fit your need.
+2. Build image with "docker compose build".
+3. Start the service with "docker compose up -d", it will take some time to
+   install dependencies.
+
+To configure accelerater or install dependencies manually, you'll need a
+venv-ready shell by running "docker compose run --rm webui bash".
+

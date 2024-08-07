@@ -1,3 +1,2 @@
-webui-user.sh
-stable-diffusion-webui
-docker-compose.yml
+/webui
+/docker-compose.yml
